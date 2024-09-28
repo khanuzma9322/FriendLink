@@ -4,13 +4,15 @@ import { Box, Heading, Button } from '@chakra-ui/react';
 import CalendarPage from './components/CalendarPage';
 import MainPage from './components/MainPage';
 import BudgetManagerPage from './components/BudgetManagerPage';
+import FriendPage from './components/FriendPage';
 
 function App() {
   const [budget, setBudget] = useState(0); // Total budget
   const [remaining, setRemaining] = useState(0); // Remaining balance
   const [transactions, setTransactions] = useState([]); // Record of all transactions
   const [events, setEvents] = useState([]); // Calendar events
-
+  const [friends, setFriends] = useState([]); // Friends
+  const [newFriend, setNewFriend] = useState('');
   // Function to add money to the budget
   const addBudget = (amount) => {
     setBudget(budget + amount);
@@ -63,7 +65,8 @@ function App() {
         <Box textAlign="center" mb={6}>
           <Button as={Link} to="/" mr={4} colorScheme="blue">Home</Button>
           <Button as={Link} to="/calendar" mr={4} colorScheme="blue">Calendar</Button>
-          <Button as={Link} to="/budget" colorScheme="blue">Budget</Button>
+          <Button as={Link} to="/budget" mr = {4} colorScheme="blue">Budget</Button>
+          <Button as={Link} to="/friends" colorScheme="blue">Friends</Button>
         </Box>
 
         {/* Routes */}
@@ -92,6 +95,7 @@ function App() {
               />
             }
           />
+          <Route path="/friends" element={<FriendPage friends={friends} newFriend = {newFriend} setFriends={setFriends} setNewFriend={setNewFriend}/>} />
         </Routes>
       </Box>
     </Router>
