@@ -1,23 +1,36 @@
 import React, {useState} from 'react';
 import { Box, Grid, GridItem, Heading, VStack, Button, HStack, Input, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 
-function MainPage() {
-  // State to store the list of friends and activities
+function MainPage({ addEventAndActivity, budget, remaining, transactions }) {
+  const [activityName, setActivityName] = useState('');
+  const [cost, setCost] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [location, setLocation] = useState('');
   const [friends, setFriends] = useState([]);
-  // State to store input values
   const [friendName, setFriendName] = useState('');
   const [friendActivity, setFriendActivity] = useState('');
-  
-  // Modal controls from Chakra UI
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Function to handle adding a new friend
+  const handleAddEvent = () => {
+    if (activityName && cost && date && time && location) {
+      addEventAndActivity(activityName, parseFloat(cost), date, time, location);
+      setActivityName('');
+      setCost('');
+      setDate('');
+      setTime('');
+      setLocation('');
+    } else {
+      alert('Please fill out all fields.');
+    }
+  };
+
   const handleAddFriend = () => {
     if (friendName && friendActivity) {
       setFriends([...friends, { name: friendName, activity: friendActivity }]);
-      setFriendName(''); // Reset input fields
+      setFriendName('');
       setFriendActivity('');
-      onClose(); // Close the modal
+      onClose();
     }
   }
 
@@ -58,20 +71,78 @@ function MainPage() {
         <GridItem colSpan={2} bg="gray.100" p={5} borderRadius="md">
           <Heading size="md" mb={4}>Schedule a Hangout</Heading>
           <VStack spacing={4}>
-            <Input placeholder="Propose Date and Time" />
-            <Input placeholder="Select Location" />
+            <Input
+              placeholder="Activity Name"
+              value={activityName}
+              onChange={(e) => setActivityName(e.target.value)}
+            />
+            <Input
+              placeholder="Cost"
+              value={cost}
+              onChange={(e) => setCost(e.target.value)}
+              type="number"
+            />
+            <Input
+              placeholder="Propose Date (YYYY-MM-DD)"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              type="date"
+            />
+            <Input
+              placeholder="Propose Time (HH:MM)"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              type="time"
+            />
+            <Input
+              placeholder="Select Location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
             <HStack spacing={4}>
-              <Button colorScheme="green">Confirm</Button>
-              <Button variant="outline">Cancel</Button>
+              <Button colorScheme="green" onClick={handleAddEvent}>Confirm</Button>
+              <Button variant="outline" onClick={() => {setActivityName(''); setCost(''); setDate(''); setTime(''); setLocation('')}}>Cancel</Button>
             </HStack>
           </VStack>
         </GridItem>
-        <GridItem colSpan={3} bg="gray.50" p={5} borderRadius="md">
-          <Heading size="md" mb={4}>Budget Manager</Heading>
-          <HStack spacing={4}>
-            <Text>💸 Current Budget: $200</Text>
-            <Button colorScheme="blue">Add Expense</Button>
-          </HStack>
+        <GridItem colSpan={3} bg="gray.100" p={5} borderRadius="md">
+          <Heading size="md" mb={4}>Budget Summary</Heading>
+          <VStack align="start" spacing={2}>
+            <Text>💸 Current Budget: ${budget.toFixed(2)}</Text>
+            <Text>Remaining Balance: ${remaining.toFixed(2)}</Text>
+            <Heading size="sm" mt={4}>Transaction Summary</Heading>
+
+            {/* Display each transaction in a white box with colored amounts */}
+            {transactions.map((transaction, index) => (
+            <Box 
+                key={index} 
+                p={4} 
+                bg="white" 
+                borderRadius="md" 
+                w="100%" 
+                boxShadow="md" 
+            >
+                <Grid templateColumns="1fr 1fr" alignItems="center" gap={4}>
+                <Text textAlign="left">{transaction.description}</Text>
+                <HStack justify="space-between" w="100%">
+                    <Text 
+                    color={transaction.amount >= 0 ? 'green.500' : 'red.500'}
+                    fontWeight="bold"
+                    textAlign="center"
+                    flex="1"
+                    >
+                    {transaction.amount >= 0 ? '+' : ''}${transaction.amount.toFixed(2)}
+                    </Text>
+                    <Text textAlign="left">
+                    Balance: ${transaction.currentBalance.toFixed(2)}
+                    </Text>
+                </HStack>
+                </Grid>
+            </Box>
+            ))}
+
+
+          </VStack>
         </GridItem>
       </Grid>
 
