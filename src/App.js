@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          FriendLink, a way to link up with friends all across campus.
         </p>
         <a
           className="App-link"
