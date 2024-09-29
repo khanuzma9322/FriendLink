@@ -59,8 +59,10 @@ function BudgetManagerPage({ budget, remaining, transactions, addBudget, addActi
           {transactions.map((transaction, index) => (
             <HStack key={index} justify="space-between" w="100%">
               <Text>{transaction.description}</Text>
-              <Text>{transaction.amount >= 0 ? '+' : ''}${transaction.amount.toFixed(2)}</Text>
-              <Text>Balance: ${transaction.currentBalance.toFixed(2)}</Text>
+              
+              <Text>
+              <Text textAlign="right">{transaction.amount >= 0 ? '+' : ''}${transaction.amount.toFixed(2)}</Text>
+                Balance: ${transaction.currentBalance.toFixed(2)}</Text>
             </HStack>
           ))}
         </VStack>

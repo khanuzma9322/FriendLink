@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Box, Grid, GridItem, Heading, VStack, Button, HStack, Input, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
+import { Bold } from 'lucide-react';
 
 function MainPage({ addEventAndActivity, budget, remaining, transactions }) {
   const [activityName, setActivityName] = useState('');
@@ -75,29 +76,46 @@ function MainPage({ addEventAndActivity, budget, remaining, transactions }) {
               placeholder="Activity Name"
               value={activityName}
               onChange={(e) => setActivityName(e.target.value)}
+              borderColor={'black'}
+              background={'white'}
+
             />
             <Input
               placeholder="Cost"
               value={cost}
               onChange={(e) => setCost(e.target.value)}
               type="number"
+              borderColor={'black'}
+              background={'white'}
+
+
             />
             <Input
               placeholder="Propose Date (YYYY-MM-DD)"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               type="date"
+              borderColor={'black'}
+              background={'white'}
+
+
             />
             <Input
               placeholder="Propose Time (HH:MM)"
               value={time}
               onChange={(e) => setTime(e.target.value)}
               type="time"
+              borderColor={'black'}
+              background={'white'}
+
             />
             <Input
               placeholder="Select Location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              borderColor={'black'}
+              background={'white'}
+
             />
             <HStack spacing={4}>
               <Button colorScheme="green" onClick={handleAddEvent}>Confirm</Button>
@@ -108,8 +126,8 @@ function MainPage({ addEventAndActivity, budget, remaining, transactions }) {
         <GridItem colSpan={3} bg="gray.100" p={5} borderRadius="md">
           <Heading size="md" mb={4}>Budget Summary</Heading>
           <VStack align="start" spacing={2}>
-            <Text>💸 Current Budget: ${budget.toFixed(2)}</Text>
-            <Text>Remaining Balance: ${remaining.toFixed(2)}</Text>
+            <Text>💸 Current Budget: <Text as="span" fontWeight="bold">${budget.toFixed(2)}</Text></Text>
+            <Text>Remaining Balance: <Text as="span" fontWeight="bold">${remaining.toFixed(2)}</Text></Text>
             <Heading size="sm" mt={4}>Transaction Summary</Heading>
 
             {/* Display each transaction in a white box with colored amounts */}
@@ -123,17 +141,19 @@ function MainPage({ addEventAndActivity, budget, remaining, transactions }) {
                 boxShadow="md" 
             >
                 <Grid templateColumns="1fr 1fr" alignItems="center" gap={4}>
-                <Text textAlign="left">{transaction.description}</Text>
-                <HStack justify="space-between" w="100%">
+                <Text fontSize="15px" textAlign="left">{transaction.description}</Text>
+                <HStack justifyContent="end" w="100%">
+                    
+                    <Text textAlign="right" fontSize='14px'>
                     <Text 
                     color={transaction.amount >= 0 ? 'green.500' : 'red.500'}
                     fontWeight="bold"
-                    textAlign="center"
+                    fontSize='20px'
+                    textAlign="right"
                     flex="1"
                     >
                     {transaction.amount >= 0 ? '+' : ''}${transaction.amount.toFixed(2)}
                     </Text>
-                    <Text textAlign="left">
                     Balance: ${transaction.currentBalance.toFixed(2)}
                     </Text>
                 </HStack>
