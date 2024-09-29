@@ -75,29 +75,46 @@ function MainPage({ addEventAndActivity, budget, remaining, transactions }) {
               placeholder="Activity Name"
               value={activityName}
               onChange={(e) => setActivityName(e.target.value)}
+              borderColor={'black'}
+              background={'white'}
+
             />
             <Input
               placeholder="Cost"
               value={cost}
               onChange={(e) => setCost(e.target.value)}
               type="number"
+              borderColor={'black'}
+              background={'white'}
+
+
             />
             <Input
               placeholder="Propose Date (YYYY-MM-DD)"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               type="date"
+              borderColor={'black'}
+              background={'white'}
+
+
             />
             <Input
               placeholder="Propose Time (HH:MM)"
               value={time}
               onChange={(e) => setTime(e.target.value)}
               type="time"
+              borderColor={'black'}
+              background={'white'}
+
             />
             <Input
               placeholder="Select Location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              borderColor={'black'}
+              background={'white'}
+
             />
             <HStack spacing={4}>
               <Button colorScheme="green" onClick={handleAddEvent}>Confirm</Button>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Box, Heading, Button } from '@chakra-ui/react';
+import './index.css';
 import CalendarPage from './components/CalendarPage';
 import MainPage from './components/MainPage';
 import BudgetManagerPage from './components/BudgetManagerPage';
