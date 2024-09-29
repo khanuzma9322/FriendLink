@@ -62,7 +62,10 @@ function App() {
     <Router>
       <Box p={5}>
         {/* Navigation Links */}
-        <Heading textAlign="center" mb={6}>FriendLink: College Hangout Planner</Heading>
+        {/* <Heading textAlign="center" mb={6}>FriendLink: College Hangout Planner</Heading> */}
+        <Box textAlign="center" mb={6}>
+          <img src={'friendlink_title.png'} alt="FriendLink logo" style={{ width: '450px', margin: '0 auto' }} />
+        </Box>
         <Box textAlign="center" mb={6}>
           <Button as={Link} to="/" mr={4} colorScheme="blue">Home</Button>
           <Button as={Link} to="/calendar" mr={4} colorScheme="blue">Calendar</Button>
